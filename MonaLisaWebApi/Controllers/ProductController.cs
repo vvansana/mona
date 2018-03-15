@@ -15,10 +15,10 @@ namespace MonaLisaWebApi.Controllers
     {
         private  DatabaseContext db = new DatabaseContext();
 
-       
-        public IQueryable<Product> Get()
+        public List<Product> Get()
         {
-            return db.Products;
+            int count = db.Products.Count();
+            return db.Products.ToList();
             //try
             //{
             //    var result = db.Products.Select(x => x );
@@ -30,6 +30,11 @@ namespace MonaLisaWebApi.Controllers
 
             //    return InternalServerError();
             //}
+        }
+       
+        public int Count()
+        {
+            return db.Products.Count();
         }
         [HttpPost]
         public HttpResponseMessage InsertOrUpdate([FromBody]Product product)

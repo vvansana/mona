@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Facebook;
+using Newtonsoft.Json.Linq;
 
 namespace FacebookPosting
 {
@@ -26,7 +27,7 @@ namespace FacebookPosting
         public MainWindow()
         {
             InitializeComponent();
-            PublishPhoto();
+          //  PublishPhoto();
           //  Initialize();
         }
 
@@ -76,6 +77,39 @@ namespace FacebookPosting
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("client_id", "");
             parameters.Add("redirect_uri", "https:");
+        }
+
+        private async void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            txtbxHeader.Text = string.Empty;
+            MonaWebApiClient client = new MonaWebApiClient();
+            var result = client.Register(string.Empty);
+
+
+
+            var response = await result;
+            txtbxHeader.Text = response.Headers.ToString();
+
+        }
+
+        private async void Login_Click(object sender, RoutedEventArgs e)
+        {
+            txtbxHeader.Text = string.Empty;
+            MonaWebApiClient client = new MonaWebApiClient();
+            AccessToken accessToken = await client.GetAccessTokenAsync("test@gmail.com", "Password1!");
+
+            txtbxHeader.Text = accessToken.TokenString;
+        }
+
+        public class AccessToken
+        {
+            /// <summary>
+            /// </summary>
+            public DateTime Expiration { get; set; }
+
+            /// <summary>
+            /// </summary>
+            public string TokenString { get; set; }
         }
     }
 }

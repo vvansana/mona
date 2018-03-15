@@ -11,10 +11,8 @@ namespace MonaLisaWebApi.Controllers
     {
         public ActionResult Index()
         {
-            DatabaseContext db = new DatabaseContext();
-            var products = db.Products.ToList()[0];
-
-            ViewBag.Title = products.ProductName;
+            
+            ViewBag.Title = "Home";
 
             return View();
         }

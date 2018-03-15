@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Button x:Name="btnRegister" Content="Button" HorizontalAlignment="Left" Margin="165,71,0,0" VerticalAlignment="Top" Width="75" Click="btnRegister_Click"/>
+        <TextBlock x:Name="txtbxHeader" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="51" Width="221"/>
+        <Button x:Name="Login" Content="btnLogin" HorizontalAlignment="Left" Margin="350,76,0,0" VerticalAlignment="Top" Width="75" Click="Login_Click"/>
+
     </Grid>
 </Window>
