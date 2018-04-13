@@ -10,6 +10,7 @@ using System.Web.Routing;
 using MonaLisaWebApi.Context;
 using MultipartDataMediaFormatter;
 using MultipartDataMediaFormatter.Infrastructure;
+using System.Net.Http.Formatting;
 
 namespace MonaLisaWebApi
 {
@@ -25,7 +26,7 @@ namespace MonaLisaWebApi
 
             //Enable posting of complex objects
             GlobalConfiguration.Configuration.Formatters.Add(new FormMultipartEncodedMediaTypeFormatter(new MultipartFormatterSettings()));
-
+            GlobalConfiguration.Configuration.Formatters.Add(new JsonMediaTypeFormatter());
             //make sure EF migrations is disabled
             Database.SetInitializer<DatabaseContext>(null);
         }

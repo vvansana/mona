@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
-using MonaLisaWebApi.Models;
+using MonaLisaWebApi.Entity;
 
 namespace MonaLisaWebApi.Context
 {
-    public class ProductEntityConfiguration : EntityTypeConfiguration<Product>
+    public class ProductEntityConfiguration : EntityTypeConfiguration<ProductEntity>
     {
         public ProductEntityConfiguration()
         {
@@ -23,7 +23,7 @@ namespace MonaLisaWebApi.Context
                 .HasColumnName("ProductDescription");
             this.Property(x => x.ProductPrice)
                 .HasColumnName("ProductPrice");             
-            this.HasMany<ProductImage>(s => s.ProductImages);
+            this.HasMany<ProductImageEntity>(s => s.ProductImages);
 
         }
     }

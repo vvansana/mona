@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
-using MonaLisaWebApi.Models;
+using MonaLisaWebApi.Entity;
 
 namespace MonaLisaWebApi.Context
 {
-    public class ProductImageEntityConfiguration : EntityTypeConfiguration<ProductImage>
+    public class ProductImageEntityConfiguration : EntityTypeConfiguration<ProductImageEntity>
     {
         public ProductImageEntityConfiguration()
         {

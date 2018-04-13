@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Facebook;
 using Newtonsoft.Json.Linq;
+using Mona.Webapi.Models;
 
 namespace FacebookPosting
 {
@@ -92,15 +93,7 @@ namespace FacebookPosting
 
         }
 
-        private async void Login_Click(object sender, RoutedEventArgs e)
-        {
-            txtbxHeader.Text = string.Empty;
-            MonaWebApiClient client = new MonaWebApiClient();
-            AccessToken accessToken = await client.GetAccessTokenAsync("test@gmail.com", "Password1!");
-
-            txtbxHeader.Text = accessToken.TokenString;
-        }
-
+       
         public class AccessToken
         {
             /// <summary>
@@ -110,6 +103,80 @@ namespace FacebookPosting
             /// <summary>
             /// </summary>
             public string TokenString { get; set; }
+        }
+
+        async private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            txtbxHeader.Text = string.Empty;
+            MonaWebApiClient client = new MonaWebApiClient();
+            AccessToken accessToken = await client.GetAccessTokenAsync("test@gmail.com", "Password1!");
+
+            txtbxHeader.Text = accessToken.TokenString;
+        }
+
+        async private void btnGetProducts_Click(object sender, RoutedEventArgs e)
+        {
+            MonaWebApiClient client = new MonaWebApiClient();
+            var results = await client.GetProducts();
+
+            dgridDisplay.ItemsSource = results;
+          
+        }
+
+        async private void btnGetProductA_Click(object sender, RoutedEventArgs e)
+        {
+            MonaWebApiClient client = new MonaWebApiClient();
+
+            Product p = new Product
+            {
+                ProductName = "Apples",
+                ProductDescription = "Green"
+            };
+
+            var r1 = await client.AddProduct(p);
+
+
+
+            
+        }
+
+        async private void btnPutProduct5_Click(object sender, RoutedEventArgs e)
+        {
+            MonaWebApiClient client = new MonaWebApiClient();
+
+            Product p = new Product
+            {
+                ProductName = "Apples",
+                ProductDescription = "Green"
+            };
+
+            var r1 = await client.UpdateProduct(5,p);
+
+
+        
+
+        }
+
+        async private void btnGetProduct1_Click(object sender, RoutedEventArgs e)
+        {
+            MonaWebApiClient client = new MonaWebApiClient();
+
+            var test = await client.GetProduct(5);
+            dgridDisplay.ItemsSource = test;
+        }
+
+        async private void btnPostProduct_Click(object sender, RoutedEventArgs e)
+        {
+            MonaWebApiClient client = new MonaWebApiClient();
+
+            Product p = new Product
+            {
+                ProductName = "Apples",
+                ProductDescription = "Green"
+            };
+
+            var r1 = await client.AddProduct(p);
+
         }
     }
 }

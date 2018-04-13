@@ -7,9 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button x:Name="btnRegister" Content="Button" HorizontalAlignment="Left" Margin="165,71,0,0" VerticalAlignment="Top" Width="75" Click="btnRegister_Click"/>
+        <Button x:Name="btnRegister" Content="Api Register" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Width="75" Click="btnRegister_Click"/>
         <TextBlock x:Name="txtbxHeader" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="51" Width="221"/>
-        <Button x:Name="Login" Content="btnLogin" HorizontalAlignment="Left" Margin="350,76,0,0" VerticalAlignment="Top" Width="75" Click="Login_Click"/>
+        <Button x:Name="btnLogin" Content="Api login" HorizontalAlignment="Left" Margin="10,78,0,0" VerticalAlignment="Top" Width="75" Click="btnLogin_Click"/>
+        <Button x:Name="btnGetProducts" Content="Get Products" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top" Width="75" Click="btnGetProducts_Click"/>
+        <DataGrid x:Name="dgridDisplay" HorizontalAlignment="Left" Margin="349,0,0,0" VerticalAlignment="Top" Height="217" Width="169"/>
+        <Button x:Name="btnGetProductA" Content="Get Product 10" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Width="92" Click="btnGetProductA_Click"/>
+        <Button x:Name="btnPutProduct5" Content="Put Product 5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" Margin="10,182,0,0" Click="btnPutProduct5_Click"/>
+        <Button x:Name="btnGetProduct1" Content="Get Product 1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" Margin="10,159,0,0" Click="btnGetProduct1_Click"/>
+        <Button x:Name="btnPostProduct" Content="Post Product B" HorizontalAlignment="Left" Margin="10,208,0,0" VerticalAlignment="Top" Width="92" Click="btnPostProduct_Click"/>
 
     </Grid>
 </Window>

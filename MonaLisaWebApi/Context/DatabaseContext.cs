@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using MonaLisaWebApi.Models;
+using MonaLisaWebApi.Entity;
 
 namespace MonaLisaWebApi.Context
 {
@@ -13,8 +13,8 @@ namespace MonaLisaWebApi.Context
         {
         }
 
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<ProductEntity> Products { get; set; }
+        public DbSet<ProductImageEntity> ProductImages { get; set; }
 
 
 

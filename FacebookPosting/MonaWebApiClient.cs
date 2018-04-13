@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Mona.Webapi.Models;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -20,7 +22,6 @@ namespace FacebookPosting
                 client.BaseAddress = new Uri("http://localhost:47920/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-           
                 var registrationInfo = new RegistrationInfo
                 {
                     Email = "test@gmail.com",
@@ -68,6 +69,98 @@ namespace FacebookPosting
                 throw new Exception("HTTP error occured -" + httpResponse.StatusCode);
 
             }
+        }
+
+        public async Task<IEnumerable<Product>> GetProducts()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:47920/");
+                client.DefaultRequestHeaders.Accept.Clear();
+
+                StringContent queryString = new StringContent("");
+
+                var httpResponse = await client.GetAsync("/api/Product");
+
+                if (httpResponse.StatusCode == HttpStatusCode.OK)
+                {              
+                    return await httpResponse.Content.ReadAsAsync<IEnumerable<Product>>();                
+                }
+
+            }
+            return null;
+        }
+
+        public async Task<IEnumerable<Product>> GetProduct(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:47920/");
+                client.DefaultRequestHeaders.Accept.Clear();
+
+                string postData = $"id={id}";
+                StringContent queryString = new StringContent(postData);
+
+
+                var httpResponse = await client.GetAsync($"/api/Product/{id}", HttpCompletionOption.ResponseHeadersRead);
+
+                if (httpResponse.StatusCode == HttpStatusCode.OK)
+                {
+                    dynamic result = await httpResponse.Content.ReadAsAsync<dynamic>();
+
+
+
+                    return result;
+                }
+
+            }
+            return null;
+        }
+
+        public async Task<bool> AddProduct(Product product)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:47920/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var httpResponse = await client.PostAsync<Product>("/api/Product", product, new JsonMediaTypeFormatter());
+
+                if (httpResponse.StatusCode == HttpStatusCode.Created)
+                {
+                    dynamic result = await httpResponse.Content.ReadAsAsync<dynamic>();
+
+
+
+                  
+                    return true;
+                }
+
+            }
+            return false;
+        }
+
+        public async Task<bool> UpdateProduct(int id, Product product)
+        {
+            //TODO: method doesn't work, still have to figure out how to pass in the id along with the complex type
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:47920/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+
+                var httpResponse = await client.PutAsync<Product>("/api/Product", product, new JsonMediaTypeFormatter());
+
+                if (httpResponse.StatusCode == HttpStatusCode.OK)
+                {
+                    return true;
+                }
+
+            }
+            return false;
         }
 
         public class RegistrationInfo

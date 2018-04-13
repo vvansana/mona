@@ -7,65 +7,115 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using MonaLisaWebApi.Context;
-using MonaLisaWebApi.Models;
+using MonaLisaWebApi.Entity;
+using Mona.Webapi.Models;
 
 namespace MonaLisaWebApi.Controllers
 {
+    [RoutePrefix("api/Product")]
     public class ProductController : ApiController
     {
         private  DatabaseContext db = new DatabaseContext();
 
-        public List<Product> Get()
+        [HttpDelete]
+        public void Delete(int id)
+        {
+
+        }
+        [HttpGet]
+        public IHttpActionResult Get()
         {
             int count = db.Products.Count();
-            return db.Products.ToList();
-            //try
-            //{
-            //    var result = db.Products.Select(x => x );
-            //    return Ok(result);
+            List<Product> test = new List<Product>();
+            foreach (var prod in db.Products)
+            {
+                test.Add(new Product
+                {
+                    ProductName = prod.ProductName,
+                    ProductDescription = prod.ProductDescription
+                });
+            }
 
-            //}
-            //catch (Exception)
-            //{
-
-            //    return InternalServerError();
-            //}
+            return Ok(test);
+           
         }
-       
-        public int Count()
+        [HttpGet]
+        public IHttpActionResult Get(int id)
         {
-            return db.Products.Count();
+            var product = db.Products.FirstOrDefault(x => x.ProductId == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(product);
         }
-        [HttpPost]
-        public HttpResponseMessage InsertOrUpdate([FromBody]Product product)
+      
+        [HttpPut]
+        public IHttpActionResult Put(int id, [FromBody]Product product)
         {
             try
             {
                 if (product.ProductId == 0)
                 {
-                    db.Products.Add(product);
+                    // db.Products.Add(product);
                     db.SaveChanges();
-                    
+
 
                 }
                 else
                 {
 
-                    db.Products.Attach(product);
+                    //   db.Products.Attach(product);
                     db.Entry(product).State = EntityState.Modified;
                     db.SaveChanges();
 
                 }
-                return Request.CreateResponse(HttpStatusCode.OK);
+                return Ok();
             }
             catch (Exception e)
             {
 
-                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                return InternalServerError(e);
             }
-            
-            
-            
+
+
+
         }
+
+        [HttpPost]
+        public IHttpActionResult Post([FromBody]Product product)
+        {
+            try
+            {
+                if (product.ProductId == 0)
+                {
+                  //   db.Products.Add(product);
+                    db.SaveChanges();
+
+
+                }
+                else
+                {
+
+                    //   db.Products.Attach(product);
+                    db.Entry(product).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                }
+                //return to 201 code (resource created) and the location of the added item
+                return this.Created<Product>( new Uri(Request.RequestUri, product.ProductId.ToString()), product);
+            }
+            catch (Exception e)
+            {
+
+                return InternalServerError(e);
+            }
+
+
+
+        }
+
+       
     }
 }

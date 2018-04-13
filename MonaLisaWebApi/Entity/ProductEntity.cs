@@ -6,10 +6,10 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace MonaLisaWebApi.Models
+namespace MonaLisaWebApi.Entity
 {
    
-    public class Product : EntityBase
+    public class ProductEntity : EntityBase
     {      
         public int ProductId { get; set; }
         public string ProductName { get; set; }
@@ -18,7 +18,7 @@ namespace MonaLisaWebApi.Models
 
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime Created { get; set; }
-        public virtual List<ProductImage> ProductImages { get; set; } 
+        public virtual List<ProductImageEntity> ProductImages { get; set; } 
 
     }
 

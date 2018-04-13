@@ -6,9 +6,8 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookPosting", "FacebookPosting\FacebookPosting.csproj", "{112FD5FA-0E72-41FF-A3AF-9954A580885B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9CDF53A4-E958-456D-AEBA-B816CE321E65}"
-	ProjectSection(SolutionItems) = preProject
-		.travis.yml = .travis.yml
-	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mona.Webapi.Models", "Mona.Webapi.Models\Mona.Webapi.Models.csproj", "{1E965E48-E377-4934-91CF-06E5D1725256}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +37,22 @@ Global
 		{112FD5FA-0E72-41FF-A3AF-9954A580885B}.Release|x64.Build.0 = Release|Any CPU
 		{112FD5FA-0E72-41FF-A3AF-9954A580885B}.Release|x86.ActiveCfg = Release|Any CPU
 		{112FD5FA-0E72-41FF-A3AF-9954A580885B}.Release|x86.Build.0 = Release|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Debug|ARM.Build.0 = Debug|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Debug|x64.Build.0 = Debug|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Debug|x86.Build.0 = Debug|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Release|ARM.ActiveCfg = Release|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Release|ARM.Build.0 = Release|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Release|x64.ActiveCfg = Release|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Release|x64.Build.0 = Release|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Release|x86.ActiveCfg = Release|Any CPU
+		{1E965E48-E377-4934-91CF-06E5D1725256}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

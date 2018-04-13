@@ -5,10 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace MonaLisaWebApi.Models
+namespace MonaLisaWebApi.Entity
 {
    
-    public class ProductImage : EntityBase
+    public class ProductImageEntity : EntityBase
     {
        
         public int ImageId { get; set; }
