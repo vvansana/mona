@@ -32,7 +32,8 @@ namespace MonaLisaWebApi.Controllers
                 test.Add(new Product
                 {
                     ProductName = prod.ProductName,
-                    ProductDescription = prod.ProductDescription
+                    ProductDescription = prod.ProductDescription,
+                    ProductId = prod.ProductId
                 });
             }
 
@@ -42,7 +43,13 @@ namespace MonaLisaWebApi.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            var product = db.Products.FirstOrDefault(x => x.ProductId == id);
+            var productEntity = db.Products.FirstOrDefault(x => x.ProductId == id);
+            var product = new Product
+            {
+                ProductName = productEntity.ProductName,
+                ProductDescription = productEntity.ProductDescription,
+                ProductId = productEntity.ProductId
+            };
             if (product == null)
             {
                 return NotFound();
@@ -88,9 +95,16 @@ namespace MonaLisaWebApi.Controllers
         {
             try
             {
+                var productEntity = new ProductEntity
+                {
+                    ProductName = product.ProductName,
+                    ProductDescription = product.ProductDescription,
+                    ProductPrice = product.ProductPrice
+                };
+
                 if (product.ProductId == 0)
                 {
-                  //   db.Products.Add(product);
+                     db.Products.Add(productEntity);
                     db.SaveChanges();
 
 
@@ -98,7 +112,7 @@ namespace MonaLisaWebApi.Controllers
                 else
                 {
 
-                    //   db.Products.Attach(product);
+                    db.Products.Attach(productEntity);
                     db.Entry(product).State = EntityState.Modified;
                     db.SaveChanges();
 
