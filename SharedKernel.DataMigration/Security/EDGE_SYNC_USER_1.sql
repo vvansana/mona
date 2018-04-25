@@ -1,0 +1,2 @@
+﻿CREATE USER [EDGE_SYNC_USER];
+

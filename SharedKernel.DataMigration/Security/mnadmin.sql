@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [mnadmin]
+    WITH PASSWORD = N'pFzvpTMX|o7ikpxug{mckPf0msFT7_&#$!~<bxih|Jpiumib', SID = 0xDF80F6B1FDE0A342BE99C845A90621F0, DEFAULT_LANGUAGE = [us_english], CHECK_POLICY = OFF;
+

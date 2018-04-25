@@ -8,6 +8,10 @@ using DisconnectedGenericRepository;
 using Mona.Webapi.Models;
 using System.Data.Entity;
 using System.Data.Common;
+using SharedKernelData.Context;
+using SharedKernelData.Entity;
+using System.Diagnostics;
+using Mona.SharedTestLib;
 
 namespace MonaLisaWebApi.Tests
 {
@@ -15,7 +19,7 @@ namespace MonaLisaWebApi.Tests
     [TestFixture]
     public class GenericRepositoryTest
     {
-        GenericRepository<Product> _productRepository = null;
+        GenericRepository<ProductEntity> _productRepository = null;
         [SetUp]
 
         public void Setup()
@@ -24,17 +28,38 @@ namespace MonaLisaWebApi.Tests
         }
 
         [Test]
-        public void GetAllProductsWithDescriptionSample()
+        public void GetProductsWithProductAsTheDescription()
         {
-            string connectionString = "Data Source = LR90FBH91; Initial Catalog = WebsiteDb; Integrated Security = false; User ID = mnadmin; Password=MonaLisa1";
-            using (DbContext context = new DbContext(connectionString))
+            using (DatabaseContext context = new DatabaseContext(TestingConstants.ConnectionString))
             {
-                _productRepository = new GenericRepository<Product>(context);
-                var results2 =  _productRepository.All();
-                var results = _productRepository.AllInclude(x => x.ProductName, x => x.ProductPrice);
+               
+                context.Database.Log = EFCommandLogging.Log;
+                _productRepository = new GenericRepository<ProductEntity>(context);
+                var results2 = _productRepository.FindBy(x => x.ProductName == "Product");
+               
             }
             
 
+        }
+
+        public void GetProductAndIncludeCompositeObjects()
+        {
+            using (DatabaseContext context = new DatabaseContext(TestingConstants.ConnectionString))
+            {
+
+                context.Database.Log = EFCommandLogging.Log;
+                _productRepository = new GenericRepository<ProductEntity>(context);
+                //TODO: I think the findByInclude works with sub components or possible joins, need to spend more time on this.
+                var results2 = _productRepository.FindByInclude(x => x.ProductName == "Product");
+
+            }
+        }
+
+        public void 
+
+        private void Write(string message)
+        {
+            Debug.WriteLine(message);
         }
 
 

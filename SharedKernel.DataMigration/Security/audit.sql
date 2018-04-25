@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [audit]
+    WITH PASSWORD = N'pzvpo4ikpx<ugB@{mcNkfmbxmsFT7_&#$!~<ieh|xpzC@iui', SID = 0x6167F393B021D14190BE8A5E8704FA9F, DEFAULT_DATABASE = [AuditLog], DEFAULT_LANGUAGE = [us_english], CHECK_POLICY = OFF;
+

@@ -6,16 +6,22 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
-using MonaLisaWebApi.Context;
-using MonaLisaWebApi.Entity;
+using SharedKernelData.Context;
+using SharedKernelData.Entity;
 using Mona.Webapi.Models;
+using DisconnectedGenericRepository;
 
 namespace MonaLisaWebApi.Controllers
 {
     [RoutePrefix("api/Product")]
     public class ProductController : ApiController
     {
-        private  DatabaseContext db = new DatabaseContext();
+        private GenericRepository<Product> _repo;
+
+        public ProductController(GenericRepository<Product> repo)
+        {
+            _repo = repo;
+        }
 
         [HttpDelete]
         public void Delete(int id)
@@ -25,9 +31,9 @@ namespace MonaLisaWebApi.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            int count = db.Products.Count();
+          
             List<Product> test = new List<Product>();
-            foreach (var prod in db.Products)
+            foreach (var prod in _repo.All())
             {
                 test.Add(new Product
                 {
@@ -43,7 +49,7 @@ namespace MonaLisaWebApi.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            var productEntity = db.Products.FirstOrDefault(x => x.ProductId == id);
+            var productEntity = _repo.FindBy(x => x.ProductId == id).FirstOrDefault();
             var product = new Product
             {
                 ProductName = productEntity.ProductName,
@@ -66,16 +72,16 @@ namespace MonaLisaWebApi.Controllers
                 if (product.ProductId == 0)
                 {
                     // db.Products.Add(product);
-                    db.SaveChanges();
+                    _repo.Update(product);
 
 
                 }
                 else
                 {
-
+                    
                     //   db.Products.Attach(product);
-                    db.Entry(product).State = EntityState.Modified;
-                    db.SaveChanges();
+                    //db.Entry(product).State = EntityState.Modified;
+                    //db.SaveChanges();
 
                 }
                 return Ok();
@@ -95,26 +101,21 @@ namespace MonaLisaWebApi.Controllers
         {
             try
             {
-                var productEntity = new ProductEntity
-                {
-                    ProductName = product.ProductName,
-                    ProductDescription = product.ProductDescription,
-                    ProductPrice = product.ProductPrice
-                };
+                
 
                 if (product.ProductId == 0)
                 {
-                     db.Products.Add(productEntity);
-                    db.SaveChanges();
+                     _repo.Update(product);
+                 
 
 
                 }
                 else
                 {
 
-                    db.Products.Attach(productEntity);
-                    db.Entry(product).State = EntityState.Modified;
-                    db.SaveChanges();
+                    //db.Products.Attach(productEntity);
+                    //db.Entry(product).State = EntityState.Modified;
+                    //db.SaveChanges();
 
                 }
                 //return to 201 code (resource created) and the location of the added item

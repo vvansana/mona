@@ -1,0 +1,34 @@
+﻿ALTER SERVER ROLE [sysadmin] ADD MEMBER [VSPNT01\VansVo];
+
+
+GO
+ALTER SERVER ROLE [sysadmin] ADD MEMBER [NT SERVICE\SQLWriter];
+
+
+GO
+ALTER SERVER ROLE [sysadmin] ADD MEMBER [NT SERVICE\Winmgmt];
+
+
+GO
+ALTER SERVER ROLE [sysadmin] ADD MEMBER [NT Service\MSSQLSERVER];
+
+
+GO
+ALTER SERVER ROLE [sysadmin] ADD MEMBER [om_user];
+
+
+GO
+ALTER SERVER ROLE [securityadmin] ADD MEMBER [VSPNT01\VansVo];
+
+
+GO
+ALTER SERVER ROLE [serveradmin] ADD MEMBER [VSPNT01\VansVo];
+
+
+GO
+ALTER SERVER ROLE [setupadmin] ADD MEMBER [VSPNT01\VansVo];
+
+
+GO
+ALTER ROLE [db_datareader] ADD MEMBER [EDGE_SYNC_USER];
+

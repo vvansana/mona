@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [VSPNT01\VansVo]
+    FROM WINDOWS WITH DEFAULT_LANGUAGE = [us_english];
+

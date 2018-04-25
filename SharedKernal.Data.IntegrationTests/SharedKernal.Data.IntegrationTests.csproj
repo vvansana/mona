@@ -61,6 +61,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mona.SharedTestLib\Mona.SharedTestLib.csproj">
+      <Project>{688c048b-13d8-4308-8a91-e88d2874c2bc}</Project>
+      <Name>Mona.SharedTestLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mona.Webapi.Models\Mona.Webapi.Models.csproj">
       <Project>{1e965e48-e377-4934-91cf-06e5d1725256}</Project>
       <Name>Mona.Webapi.Models</Name>
