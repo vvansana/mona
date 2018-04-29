@@ -16,12 +16,18 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace MonaLisaWebApi.DependencyResolution {
+    using AutoMapper;
+    using AutoMapper.Configuration;
     using DisconnectedGenericRepository;
+    using SharedKernel.Data;
+    using SharedKernel.Data.Repository;
     using SharedKernelData.Context;
     using StructureMap;
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
+    using System;
     using System.Data.Entity;
+    using System.Linq;
 
     public class DefaultRegistry : Registry {
         #region Constructors and Destructors
@@ -35,7 +41,27 @@ namespace MonaLisaWebApi.DependencyResolution {
                 });
             //For<IExample>().Use<Example>();
             For<DbContext>().Use<DatabaseContext>().Transient();
+            For<IProductRepository>().Use<ProductRepository>().Transient();
 
+            //Get all Profiles
+            var profiles = typeof(AutomapperProfile).Assembly.GetTypes()
+                .Where(x => typeof(Profile).IsAssignableFrom(x))
+                .Select(x => (Profile)Activator.CreateInstance(x));
+            //For each profile, include that profile in the MapperConfiguration
+            var config = new MapperConfigurationExpression();
+           
+            foreach (var profile in profiles)
+            {
+                config.AddProfile(profile);
+            }
+
+
+            //Create a mapper that will be used by the DI container
+            var mapperConfig = new MapperConfiguration(config);
+            var mapper = new Mapper(mapperConfig);
+
+            //Register the DI interfaces with their implementation
+            For<IMapper>().Use(mapper);
             //sample code to only replace DatabaseContext with DbContent for GenericRepository
             //For(typeof(GenericRepository<>))
             //    .Use(typeof(GenericRepository<>))

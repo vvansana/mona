@@ -14,6 +14,11 @@ namespace SharedKernelData.Context
         {
             this.ToTable("Product");
             this.HasKey<int>(x => x.ProductId);
+            this.HasRequired(x => x.ProductCategory)
+                .WithMany()
+                .Map(m => m.MapKey("CategoryId"));
+            this.Property(x => x.ProductCategoryId)
+                .HasColumnName("CategoryId");
             this.Property(x => x.Created)
                 .HasColumnName("Created")
                 .HasColumnType("datetime").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);

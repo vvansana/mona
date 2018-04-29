@@ -74,5 +74,12 @@
     <Build Include="Security\mnadmin_1.sql" />
     <Build Include="Security\mnadmin_2.sql" />
     <Build Include="Security\RoleMemberships_1.sql" />
+    <Build Include="dbo\Tables\Category.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SharedKernel.DataMigration.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="SharedKernel.DataMigration.refactorlog" />
   </ItemGroup>
 </Project>

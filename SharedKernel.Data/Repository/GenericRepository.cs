@@ -1,4 +1,5 @@
-﻿using ReusableGenericRepository;
+﻿using AutoMapper;
+using ReusableGenericRepository;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,6 +14,7 @@ namespace DisconnectedGenericRepository
     {
         internal DbContext _context;
         internal DbSet<TEntity> _dbSet;
+        private IMapper _mapper;
 
         public GenericRepository(DbContext context)
         {
@@ -45,7 +47,9 @@ namespace DisconnectedGenericRepository
 
         public void Insert(TEntity entity)
         {
+            
             _dbSet.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Update(TEntity entity)
@@ -55,8 +59,17 @@ namespace DisconnectedGenericRepository
 
         public void Delete(int id)
         {
-
+            Expression<Func<TEntity, bool>> lambda = Utilities.BuildLambdaForFindByKey<TEntity>(id);
+            var entity = _dbSet.AsNoTracking().SingleOrDefault(lambda);
+            if (entity != null)
+            {
+               // _dbSet.Remove(entity);
+                _context.Entry(entity).State = EntityState.Deleted;
+                _context.SaveChanges();
+            }
         }
+
+
 
         public IEnumerable<TEntity> AllInclude(params Expression<Func<TEntity,object>>[] includeProperties)
         {

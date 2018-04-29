@@ -9,10 +9,11 @@ namespace Mona.Webapi.Models
     public class Product
     {
         public int ProductId { get; set; }
+        public Category ProductCategory { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public decimal? ProductPrice { get; set; }
         public DateTime Created { get; set; }
- //       public virtual List<ProductImageEntity> ProductImages { get; set; }
+        public virtual List<ProductImage> ProductImages { get; set; }
     }
 }

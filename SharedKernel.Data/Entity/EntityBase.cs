@@ -11,6 +11,8 @@ namespace SharedKernelData.Entity
     {
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreatedUtc { get; set; }
+        public bool Deleted { get; set; }
+        
 
         //[Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         //public DateTime Created { get; set; }

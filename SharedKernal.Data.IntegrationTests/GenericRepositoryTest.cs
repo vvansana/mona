@@ -55,7 +55,6 @@ namespace MonaLisaWebApi.Tests
             }
         }
 
-        public void 
 
         private void Write(string message)
         {

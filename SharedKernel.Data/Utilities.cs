@@ -15,7 +15,7 @@ namespace ReusableGenericRepository
             var item = Expression.Parameter(typeof(TEntity), "entity");
 
             //string representation of the the property name
-            var prop = Expression.Property(item, typeof(TEntity).Name + "Id");
+            var prop = Expression.Property(item, typeof(TEntity).Name.Replace("Entity","") + "Id");
             //the variable we are comparing the property to
             var value = Expression.Constant(id);
             //evaluate by making sure prop and value are equal (Expression.GreaterThan would check greater than etc)

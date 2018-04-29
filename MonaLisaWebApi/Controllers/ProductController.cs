@@ -10,15 +10,16 @@ using SharedKernelData.Context;
 using SharedKernelData.Entity;
 using Mona.Webapi.Models;
 using DisconnectedGenericRepository;
+using SharedKernel.Data.Repository;
 
 namespace MonaLisaWebApi.Controllers
 {
     [RoutePrefix("api/Product")]
     public class ProductController : ApiController
     {
-        private GenericRepository<Product> _repo;
+        private IProductRepository _repo = null;;
 
-        public ProductController(GenericRepository<Product> repo)
+        public ProductController(IProductRepository repo)
         {
             _repo = repo;
         }
@@ -31,31 +32,19 @@ namespace MonaLisaWebApi.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-          
-            List<Product> test = new List<Product>();
-            foreach (var prod in _repo.All())
+            var results = _repo.All();
+            if (results.Count() == 0)
             {
-                test.Add(new Product
-                {
-                    ProductName = prod.ProductName,
-                    ProductDescription = prod.ProductDescription,
-                    ProductId = prod.ProductId
-                });
+                return NotFound();
             }
 
-            return Ok(test);
-           
+            return Ok(results);          
         }
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            var productEntity = _repo.FindBy(x => x.ProductId == id).FirstOrDefault();
-            var product = new Product
-            {
-                ProductName = productEntity.ProductName,
-                ProductDescription = productEntity.ProductDescription,
-                ProductId = productEntity.ProductId
-            };
+            var product = _repo.FindByKey(id);
+            
             if (product == null)
             {
                 return NotFound();
@@ -63,17 +52,15 @@ namespace MonaLisaWebApi.Controllers
 
             return Ok(product);
         }
-      
-        [HttpPut]
+             
+        [HttpPut] 
         public IHttpActionResult Put(int id, [FromBody]Product product)
         {
             try
             {
                 if (product.ProductId == 0)
                 {
-                    // db.Products.Add(product);
                     _repo.Update(product);
-
 
                 }
                 else
@@ -112,7 +99,7 @@ namespace MonaLisaWebApi.Controllers
                 }
                 else
                 {
-
+                    _repo.Insert(product);
                     //db.Products.Attach(productEntity);
                     //db.Entry(product).State = EntityState.Modified;
                     //db.SaveChanges();
